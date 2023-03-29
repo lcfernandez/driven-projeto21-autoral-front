@@ -16,7 +16,7 @@ export function Header() {
 
 const HeaderContainer = styled.div`
   text-align: center;
-  margin: 2rem;
+  margin: 10rem 0 5rem 0;
 `;
 
 const Logo = styled.div`

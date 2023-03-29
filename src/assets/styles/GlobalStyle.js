@@ -5,6 +5,8 @@ export const GlobalStyle = createGlobalStyle`
     v2.0 | 20110126
     License: none (public domain)
     +
+    "The 62.5% Font Size Trick"
+    +
     box-sizing best practices
   */
 
@@ -24,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    font-size: 62.5%; //10px ("The 62.5% Font Size Trick")
     font: inherit;
     vertical-align: baseline;
   }

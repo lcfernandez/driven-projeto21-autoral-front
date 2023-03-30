@@ -10,6 +10,11 @@ export const Form = styled.form`
   margin: 0 auto;
   width: 28rem;
 
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    width: 20rem;
+  }
+
   a {
     color: ${BLACK_COLOR};
     font-size: 1rem;

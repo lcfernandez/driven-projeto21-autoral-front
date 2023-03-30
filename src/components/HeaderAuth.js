@@ -1,20 +1,20 @@
 import styled from "styled-components";
 import { LOGO_FONT, TITLE_FONT } from "../constants/fonts";
 
-export function Header() {
+export function HeaderAuth() {
   return (
-    <HeaderContainer>
+    <HeaderAuthContainer>
       <Logo>
         Moodtasks
       </Logo>
       <Slogan>
         Inspiração e organização em um só lugar
       </Slogan>
-    </HeaderContainer>
+    </HeaderAuthContainer>
   );
 }
 
-const HeaderContainer = styled.div`
+const HeaderAuthContainer = styled.div`
   margin: 5rem 0 5rem 0;
   text-align: center;
   width: 100vw;

@@ -1,5 +1,5 @@
 import { Form } from "../../assets/styles/Form";
-import { Header } from "../../components/Header";
+import { HeaderAuth } from "../../components/HeaderAuth";
 import { Link } from "react-router-dom";
 
 export function SignInPage() {
@@ -9,7 +9,7 @@ export function SignInPage() {
 
   return (
     <>
-      <Header />
+      <HeaderAuth />
 
       <Form onSubmit={signIn}>
         <input placeholder="E-mail" type="email" required />

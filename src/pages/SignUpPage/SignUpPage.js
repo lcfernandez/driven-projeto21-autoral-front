@@ -1,5 +1,5 @@
 import { Form } from "../../assets/styles/Form";
-import { Header } from "../../components/Header";
+import { HeaderAuth } from "../../components/HeaderAuth";
 import { Link } from "react-router-dom";
 
 export function SignUpPage() {
@@ -9,13 +9,13 @@ export function SignUpPage() {
 
   return (
     <>
-      <Header />
+      <HeaderAuth />
 
       <Form onSubmit={signUp}>
         <input placeholder="Nome" type="text" required />
         <input placeholder="E-mail" type="email" required />
         <input placeholder="Senha" type="password" required />
-        {/* <input placeholder="Confirmar senha" type="password" required /> */}
+        <input placeholder="Confirmar senha" type="password" required />
         
         <button>Cadastrar</button>
         

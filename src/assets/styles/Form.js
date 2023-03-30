@@ -7,7 +7,7 @@ export const Form = styled.form`
   flex-direction: column;
   font-family: ${TEXT_FONT};
   font-size: 1.2rem;
-  margin: 0 auto;
+  margin: 0 auto 5rem auto;
   width: 28rem;
 
   @media (max-width: 600px) {

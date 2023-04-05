@@ -1,3 +1,5 @@
+import { GREY_COLOR } from "../../constants/color";
+import { TEXT_FONT, TITLE_FONT } from "../../constants/fonts";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -8,6 +10,8 @@ export const GlobalStyle = createGlobalStyle`
     "The 62.5% Font Size Trick"
     +
     box-sizing best practices
+    +
+    project additions
   */
 
   html, body, div, span, applet, object, iframe,
@@ -61,5 +65,17 @@ export const GlobalStyle = createGlobalStyle`
   *:before,
   *:after {
     box-sizing: inherit;
+  }
+  /*  project additions */
+  h1 {
+    color: ${GREY_COLOR};
+    font-family: ${TITLE_FONT};
+    font-size: 2rem;
+  }
+  h3 {
+    color: ${GREY_COLOR};
+    font-family: ${TEXT_FONT};
+    font-size: 1rem;
+    margin: 2rem 0;
   }
 `;

@@ -1,4 +1,4 @@
-import { BLACK_COLOR } from "../constants/color";
+import { BLACK_COLOR, WHITE_COLOR } from "../constants/color";
 import { LOGO_FONT } from "../constants/fonts";
 import { Logout, Projects } from 'grommet-icons';
 import styled from "styled-components";
@@ -8,14 +8,16 @@ export function HeaderApp(){
     <HeaderAppContainer>
       <div>Moodtasks</div>
       <NavBar>
-        <Projects color={BLACK_COLOR} />
-        <Logout color={BLACK_COLOR} />
+        <Projects color={WHITE_COLOR} />
+        <Logout color={WHITE_COLOR} />
       </NavBar>
     </HeaderAppContainer>
   );
 }
 
 const HeaderAppContainer = styled.div`
+  background-color: ${BLACK_COLOR};
+  color: ${WHITE_COLOR};
   display: flex;
   height: 5rem;
   font-family: ${LOGO_FONT};

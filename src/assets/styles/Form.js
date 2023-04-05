@@ -1,4 +1,4 @@
-import { BLACK_COLOR, WHITE_COLOR } from "../../constants/color";
+import { GREY_COLOR, WHITE_COLOR } from "../../constants/color";
 import { TEXT_FONT } from "../../constants/fonts";
 import styled from "styled-components";
 
@@ -16,15 +16,15 @@ export const Form = styled.form`
   }
 
   a {
-    color: ${BLACK_COLOR};
+    color: ${GREY_COLOR};
     font-size: 1rem;
     text-align: center;
     text-decoration: none;
   }
 
   button {
-    background-color: ${BLACK_COLOR};
-    border: 0.15rem solid ${BLACK_COLOR};
+    background-color: ${GREY_COLOR};
+    border: 0.15rem solid ${GREY_COLOR};
     border-radius: 0.3rem;
     color: ${WHITE_COLOR};
     cursor: pointer;
@@ -38,7 +38,7 @@ export const Form = styled.form`
 
     :hover {
       background-color: ${WHITE_COLOR};
-      color: ${BLACK_COLOR};
+      color: ${GREY_COLOR};
     }
   }
 

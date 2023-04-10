@@ -72,10 +72,14 @@ export const GlobalStyle = createGlobalStyle`
     font-family: ${TITLE_FONT};
     font-size: 2rem;
   }
+  h2 {
+    color: ${GREY_COLOR};
+    font-family: ${TEXT_FONT};
+    font-size: 1.1rem;
+  }
   h3 {
     color: ${GREY_COLOR};
     font-family: ${TEXT_FONT};
     font-size: 1rem;
-    margin: 2rem 0;
   }
 `;

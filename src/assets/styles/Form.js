@@ -23,15 +23,18 @@ export const Form = styled.form`
   }
 
   button {
+    align-items: center;
     background-color: ${GREY_COLOR};
     border: 0.15rem solid ${GREY_COLOR};
     border-radius: 0.3rem;
     color: ${WHITE_COLOR};
     cursor: pointer;
+    display: flex;
     font-family: inherit;
     font-size: inherit;
     font-weight: 700;
     height: 3rem;
+    justify-content: center;
     margin: 3rem auto;
     transition-duration: 0.5s;
     width: 16rem;

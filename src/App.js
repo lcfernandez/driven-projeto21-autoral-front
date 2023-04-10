@@ -1,11 +1,11 @@
 import { GlobalStyle } from "./assets/styles/GlobalStyle";
-import { ProjectPage } from './pages/ProjectPage/ProjectPage';
-import { ProjectsPage } from './pages/ProjectsPage/ProjectsPage';
-import { SignInPage } from './pages/SignInPage/SignInPage';
-import { SignUpPage } from './pages/SignUpPage/SignUpPage';
+import { ProjectPage } from "./pages/ProjectPage/ProjectPage";
+import { ProjectsPage } from "./pages/ProjectsPage/ProjectsPage";
+import { SignInPage } from "./pages/SignInPage/SignInPage";
+import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
 import { UserContext } from "./contexts/UserContext";
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 export function App() {
   const [token, setToken] = useState(

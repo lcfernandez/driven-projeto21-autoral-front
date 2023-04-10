@@ -1,12 +1,16 @@
 import { Form } from "../../assets/styles/Form";
 import { HeaderAuth } from "../../components/HeaderAuth";
 import { GREY_COLOR } from "../../constants/color";
+import { UserContext } from "../../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
+import { useState } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 
 export function SignUpPage() {
+  const [token] = useContext(UserContext);
+
   const [disabled, setDisabled] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,6 +18,10 @@ export function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) navigate("/projects");
+  }, [navigate, token]);
 
   function signUp(e) {
     e.preventDefault();

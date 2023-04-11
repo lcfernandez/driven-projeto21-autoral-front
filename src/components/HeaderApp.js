@@ -21,7 +21,7 @@ export function HeaderApp(){
     <HeaderAppContainer>
       <div>Moodtasks</div>
       <NavBar>
-        <Projects color={WHITE_COLOR} />
+        <Projects color={WHITE_COLOR} onClick={() => navigate("/projects")}/>
         <Logout color={WHITE_COLOR} onClick={signOut}/>
       </NavBar>
     </HeaderAppContainer>

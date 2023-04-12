@@ -22,7 +22,7 @@ export function App() {
             <Route path="/" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/project" element={<ProjectPage />} />
+            <Route path="/projects/:id" element={<ProjectPage />} />
             <Route index path="*" element={<Navigate to="/" />} />
           </Routes>
         </BrowserRouter>

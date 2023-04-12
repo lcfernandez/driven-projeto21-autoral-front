@@ -4,20 +4,82 @@ import { HeaderApp } from "../../components/HeaderApp";
 import { ThreeDots } from "react-loader-spinner";
 import { UserContext } from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 export function ProjectsPage() {
   const [token] = useContext(UserContext);
 
-  const [disabled, setDisabled] = useState(false);
   const [projects, setProjects] = useState(undefined);
+  const [updateProjects, setUpdateProjects] = useState(false);
 
   const navigate = useNavigate();
 
-  function deleteProject(id) {
-    confirm("Deseja mesmo excluir o projeto");
+  function createProject(id) {
+    const name = prompt("Qual será o nome do projeto?");
+
+    if (name) {
+      const header = { headers: { "Authorization": `Bearer ${token}` } };
+      const body = { name };
+
+      axios
+        .post(`${process.env.REACT_APP_API_URI}/projects`, body, header)
+        .then(
+          () => {
+            alert("Projeto criado com sucesso!")
+            setUpdateProjects(!updateProjects);
+          }
+        )
+        .catch(
+          err => {
+            alert(err.response.data.message || err.response.data);
+          }
+        );
+    }
+  }
+
+  function deleteProject(id, name) {
+    if (window.confirm(`Deseja mesmo excluir o projeto ${name}?`)) {
+      const header = { headers: { "Authorization": `Bearer ${token}` } };
+
+      axios
+        .delete(`${process.env.REACT_APP_API_URI}/projects/${id}`, header)
+        .then(
+          () => {
+            alert("Projeto excluído com sucesso!")
+            setUpdateProjects(!updateProjects);
+          }
+        )
+        .catch(
+          err => {
+            alert(err.response.data.message || err.response.data);
+          }
+        );
+    }
+  }
+
+  function editProject(id, name) {
+    const newName = prompt("Qual será o novo nome do projeto?", name);
+    
+    if (newName && newName !== name) {
+      const header = { headers: { "Authorization": `Bearer ${token}` } };
+      const body = { name: newName };
+
+      axios
+        .put(`${process.env.REACT_APP_API_URI}/projects/${id}`, body, header)
+        .then(
+          () => {
+            alert("Projeto renomeado com sucesso!")
+            setUpdateProjects(!updateProjects);
+          }
+        )
+        .catch(
+          err => {
+            alert(err.response.data.message || err.response.data);
+          }
+        );
+    }
   }
 
   function handleProjects() {
@@ -28,15 +90,16 @@ export function ProjectsPage() {
     return (
       projects.map(
         project => <li key={project.id}>
-          <h2>- {project.name}</h2>
+          <h2>- <Link to={`/projects/${project.id}`}>{project.name}</Link></h2>
           <Actions>
             <Edit
-              disabled={disabled && true}
+              //disabled={disabled && true}
+              onClick={() => editProject(project.id, project.name)}
               size="18px"
             />
             <Trash
-              disabled={disabled && true}
-              onClick={() => deleteProject(project)}
+              //disabled={disabled && true}
+              onClick={() => deleteProject(project.id, project.name)}
               size="18px"
             />
           </Actions>
@@ -56,6 +119,7 @@ export function ProjectsPage() {
         .then(
           res => {
             setProjects(res.data);
+            
           }
         )
         .catch(
@@ -64,7 +128,7 @@ export function ProjectsPage() {
           }
         );
     }
-  }, [navigate, token]);
+  }, [navigate, token, updateProjects]);
 
   return (
     <>
@@ -72,7 +136,12 @@ export function ProjectsPage() {
 
       <ProjectsPageContainer>
         <Title>
-          <h1>Seus projetos</h1> <AddCircleButton color={GREY_COLOR} />
+          <h1>Seus projetos</h1>
+          <AddCircleButton
+            color={GREY_COLOR}
+            //disabled={disabled && true}
+            onClick={createProject}
+          />
         </Title>
 
         <ul>
@@ -119,6 +188,11 @@ const ProjectsPageContainer = styled.div`
 
   ul {
     margin: 2rem 0;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     @media (max-width: 600px) {
       text-align: center;

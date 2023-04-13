@@ -8,12 +8,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Trash } from "grommet-icons";
 import styled from "styled-components";
 import axios from "axios";
+import { TEXT_FONT } from "../../constants/fonts";
 
 export function ProjectPage() {
   const [token] = useContext(UserContext);
 
   const [images, setImages] = useState(undefined);
   const [moodboardId, setMoodboardId] = useState(undefined);
+  const [projectName, setProjectName] = useState("");
   const [updateImages, setUpdateImages] = useState(false);
 
   const navigate = useNavigate();
@@ -95,6 +97,7 @@ export function ProjectPage() {
         .then(
           res => {
             setImages(res.data.images);
+            setProjectName(res.data.project_name);
             setMoodboardId(res.data.moodboard_id);
           }
         )
@@ -109,6 +112,10 @@ export function ProjectPage() {
   return (
     <>
       <HeaderApp />
+
+      <TitleProject>
+          {projectName}
+      </TitleProject>
 
       <ProjectPageContainer>
         <MoodboardContainer>
@@ -174,6 +181,19 @@ const ProjectPageContainer = styled.div`
       display: block;
       text-align: center;
     }
+  }
+`;
+
+const TitleProject = styled.div`
+  background-color: ${GREY_COLOR};
+  color: ${WHITE_COLOR};
+  font-family: ${TEXT_FONT};
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;;
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    text-align: center;
   }
 `;
 

@@ -16,7 +16,7 @@ export function ProjectsPage() {
 
   const navigate = useNavigate();
 
-  function createProject(id) {
+  function createProject() {
     const name = prompt("Qual será o nome do projeto?");
 
     if (name) {
@@ -119,7 +119,6 @@ export function ProjectsPage() {
         .then(
           res => {
             setProjects(res.data);
-            
           }
         )
         .catch(
@@ -170,7 +169,7 @@ const Actions = styled.div`
   }
 `;
 
-const AddCircleButton = styled(AddCircle)`
+export const AddCircleButton = styled(AddCircle)`
   cursor: pointer;  
   margin: auto 1rem auto;
 `;
@@ -200,6 +199,6 @@ const ProjectsPageContainer = styled.div`
   }
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   display: flex;
 `;

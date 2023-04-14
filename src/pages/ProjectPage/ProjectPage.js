@@ -117,27 +117,31 @@ export function ProjectPage() {
       lanes.map(
         lane => <li key={lane.id}>
           <Lane>
-            <TitleLane>
-              {lane.title}
-            </TitleLane>
-            
-            <span>
-              <FormAdd
-                //disabled={disabled && true}
-                //onClick={() => editLane(lane.id, lane.title)}
-                size="22px"
-              />
-              <FormEdit
-                //disabled={disabled && true}
-                onClick={() => editLane(lane.id, lane.title)}
-                size="22px"
-              />
-              <FormClose
-                //disabled={disabled && true}
-                onClick={() => deleteLane(lane.id, lane.title)}
-                size="22px"
-              />
-            </span>
+            <LaneTop>
+              <TitleLane>
+                {lane.title}
+              </TitleLane>
+              
+              <span>
+                <FormAdd
+                  //disabled={disabled && true}
+                  //onClick={() => editLane(lane.id, lane.title)}
+                  size="22px"
+                />
+                <FormEdit
+                  //disabled={disabled && true}
+                  onClick={() => editLane(lane.id, lane.title)}
+                  size="22px"
+                />
+                <FormClose
+                  //disabled={disabled && true}
+                  onClick={() => deleteLane(lane.id, lane.title)}
+                  size="22px"
+                />
+              </span>
+            </LaneTop>
+
+            {lane.cards.map(card => <Card key={card.id}>{card.title}</Card>)}
           </Lane>
         </li>
       )
@@ -261,17 +265,16 @@ export function ProjectPage() {
             />
           </Title>
 
-          <ul>
-            {
-              images ? handleImages() :
-                <ThreeDots
-                  ariaLabel="three-dots-loading"
-                  color={GREY_COLOR}
-                  height={50}
-                  width={50}
-                />
-            }
-          </ul>
+          {
+            images ? <ul>{handleImages()}</ul> :
+              <ThreeDots
+                ariaLabel="three-dots-loading"
+                color={GREY_COLOR}
+                height={50}
+                width={50}
+              />
+          }
+          
         </MoodboardContainer>
 
         <LanesContainer>
@@ -284,22 +287,30 @@ export function ProjectPage() {
             />
           </Title>
 
-          <ul>
-            {
-              lanes ? handleLanes() :
-                <ThreeDots
-                  ariaLabel="three-dots-loading"
-                  color={GREY_COLOR}
-                  height={50}
-                  width={50}
-                />
-            }
-          </ul>
+          {
+            lanes ? <ul>{handleLanes()}</ul> :
+              <ThreeDots
+                ariaLabel="three-dots-loading"
+                color={GREY_COLOR}
+                height={50}
+                width={50}
+              />
+          }
+          
         </LanesContainer>
       </ProjectPageContainer>
     </>
   );
 }
+
+const Card = styled.div`
+  background-color: ${OFF_WHITE_COLOR};
+  border-radius: 0.3rem;
+  color: ${GREY_COLOR};
+  margin: 0.5rem;
+  padding: 1rem;
+  word-break: break-word;
+`;
 
 const FormCloseAction = styled(FormClose)`
   background-color: ${OFF_WHITE_COLOR};
@@ -320,7 +331,6 @@ const ImgStyled = styled.img`
 `;
 
 const LanesContainer = styled.div`
-  height: calc(100vh - 8.5rem);
   overflow: scroll;
   width: calc(50vw - 1rem);
 
@@ -336,12 +346,16 @@ const LanesContainer = styled.div`
 
 const Lane = styled.div`
   background-color: ${SILVER_COLOR};
-  border-radius: 0.5rem;
-  display: flex;
-  height: 30rem;
-  justify-content: space-between;
+  border-radius: 0.4rem;
   margin-right: 0.5rem;
+  max-height: calc(100vh - 13.5rem);
+  overflow: scroll;
   width: 20rem;
+`;
+
+const LaneTop = styled.div`
+  display: flex;
+  justify-content: space-between;
 
   span {
     * {
@@ -374,7 +388,6 @@ const MoodboardContainer = styled.div`
 
     @media (max-width: 600px) {
       justify-content: center;
-      text-align: center;
     }
   }
 

@@ -1,7 +1,7 @@
 import { BLACK_COLOR, WHITE_COLOR } from "../constants/color";
 import { LOGO_FONT } from "../constants/fonts";
 import { UserContext } from "../contexts/UserContext";
-import { Logout, Projects } from "grommet-icons";
+import { Logout } from "grommet-icons";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -19,11 +19,8 @@ export function HeaderApp(){
 
   return (
     <HeaderAppContainer>
-      <div>Moodtasks</div>
-      <NavBar>
-        <Projects color={WHITE_COLOR} onClick={() => navigate("/projects")}/>
-        <Logout color={WHITE_COLOR} onClick={signOut}/>
-      </NavBar>
+      <div onClick={() => navigate("/projects")}>Moodtasks</div>
+      <LogoutStyled color={WHITE_COLOR} onClick={signOut} />
     </HeaderAppContainer>
   );
 }
@@ -38,12 +35,14 @@ const HeaderAppContainer = styled.div`
   justify-content: space-between;
   padding: 1rem;
   text-align: center;
+
+  div:first-child {
+    cursor: pointer;
+  }
 `;
 
-const NavBar = styled.div`
-  * {
-    cursor: pointer;
-    height: 100%;
-    margin: 0 0.5rem;
-  }
+const LogoutStyled = styled(Logout)`
+  cursor: pointer;
+  height: 100%;
+  margin: 0 0.5rem;
 `;

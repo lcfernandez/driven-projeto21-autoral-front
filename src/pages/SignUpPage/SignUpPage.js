@@ -1,6 +1,6 @@
 import { Form } from "../../assets/styles/Form";
 import { HeaderAuth } from "../../components/HeaderAuth";
-import { GREY_COLOR } from "../../constants/color";
+import { WHITE_COLOR } from "../../constants/color";
 import { UserContext } from "../../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
@@ -88,7 +88,7 @@ export function SignUpPage() {
           {disabled ?
             <ThreeDots
               ariaLabel="three-dots-loading"
-              color={GREY_COLOR}
+              color={WHITE_COLOR}
               height={50}
             	width={50}
             />

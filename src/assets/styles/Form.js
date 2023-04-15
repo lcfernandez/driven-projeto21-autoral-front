@@ -38,11 +38,6 @@ export const Form = styled.form`
     margin: 3rem auto;
     transition-duration: 0.5s;
     width: 16rem;
-
-    :hover {
-      background-color: ${WHITE_COLOR};
-      color: ${GREY_COLOR};
-    }
   }
 
   input {

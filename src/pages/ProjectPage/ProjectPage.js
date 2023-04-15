@@ -64,6 +64,26 @@ export function ProjectPage() {
     }
   }
 
+  function deleteCard(id, title) {
+    if (window.confirm(`Deseja mesmo excluir o cartão ${title}?`)) {
+      const header = { headers: { "Authorization": `Bearer ${token}` } };
+
+      axios
+        .delete(`${process.env.REACT_APP_API_URI}/cards/${id}`, header)
+        .then(
+          () => {
+            alert("Cartão excluído com sucesso!")
+            setUpdateLanes(!updateLanes);
+          }
+        )
+        .catch(
+          err => {
+            alert(err.response.data.message || err.response.data);
+          }
+        );
+    }
+  }
+
   function editLane(laneId, title) {
     const newTitle = prompt("Qual será o novo título da lista?", title);
     
@@ -76,6 +96,29 @@ export function ProjectPage() {
         .then(
           () => {
             alert("Lista renomeada com sucesso!")
+            setUpdateLanes(!updateLanes);
+          }
+        )
+        .catch(
+          err => {
+            alert(err.response.data.message || err.response.data);
+          }
+        );
+    }
+  }
+
+  function editCard(cardId, laneId, title) {
+    const newTitle = prompt("Qual será o novo título do cartão?", title);
+    
+    if (newTitle && newTitle !== title) {
+      const header = { headers: { "Authorization": `Bearer ${token}` } };
+      const body = { title: newTitle, lane_id: Number(laneId) };
+
+      axios
+        .put(`${process.env.REACT_APP_API_URI}/cards/${cardId}`, body, header)
+        .then(
+          () => {
+            alert("Cartão renomeado com sucesso!")
             setUpdateLanes(!updateLanes);
           }
         )
@@ -125,7 +168,7 @@ export function ProjectPage() {
               <span>
                 <FormAdd
                   //disabled={disabled && true}
-                  //onClick={() => editLane(lane.id, lane.title)}
+                  onClick={() => insertCard(lane.id)}
                   size="22px"
                 />
                 <FormEdit
@@ -141,7 +184,27 @@ export function ProjectPage() {
               </span>
             </LaneTop>
 
-            {lane.cards.map(card => <Card key={card.id}>{card.title}</Card>)}
+            {
+              lane.cards.map(
+                card =>
+                  <Card key={card.id}>
+                    {card.title}
+
+                    <CardActions>
+                      <FormEdit
+                        //disabled={disabled && true}
+                        onClick={() => editCard(card.id, lane.id, card.title)}
+                        size="20x"
+                      />
+                      <FormClose
+                        //disabled={disabled && true}
+                        onClick={() => deleteCard(card.id, card.title)}
+                        size="20px"
+                      />
+                    </CardActions>
+                  </Card>
+              )
+            }
           </Lane>
         </li>
       )
@@ -194,6 +257,29 @@ export function ProjectPage() {
     }
   }
 
+  function insertCard(id) {
+    const title = prompt("Qual será o título do cartão?");
+
+    if (title) {
+      const header = { headers: { "Authorization": `Bearer ${token}` } };
+      const body = { title, lane_id: Number(id) };
+
+      axios
+        .post(`${process.env.REACT_APP_API_URI}/cards`, body, header)
+        .then(
+          () => {
+            alert("Cartão criado com sucesso!")
+            setUpdateLanes(!updateLanes);
+          }
+        )
+        .catch(
+          err => {
+            alert(err.response.data.message || err.response.data);
+          }
+        );
+    }
+  }
+
   function reLoadImages() {
     const header = { headers: { "Authorization": `Bearer ${token}` } };
 
@@ -229,21 +315,25 @@ export function ProjectPage() {
         }
       );
   };
-
+  
   useEffect(() => {
     if (!token) {
       navigate("/");
     } else {
       reLoadImages();
     }
-  }, [updateImages]);
 
+    // eslint-disable-next-line
+  }, [updateImages]);
+  
   useEffect(() => {
     if (!token) {
       navigate("/");
     } else {
       reLoadLanes();
     }
+
+    // eslint-disable-next-line
   }, [updateLanes]);
 
   return (
@@ -307,9 +397,22 @@ const Card = styled.div`
   background-color: ${OFF_WHITE_COLOR};
   border-radius: 0.3rem;
   color: ${GREY_COLOR};
+  font-family: ${TEXT_FONT};
   margin: 0.5rem;
-  padding: 1rem;
+  padding: 1.4rem 1rem;
+  position: relative;
   word-break: break-word;
+`;
+
+const CardActions = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  * {
+    cursor: pointer;
+    margin-left: 0.25rem;
+  }
 `;
 
 const FormCloseAction = styled(FormClose)`
@@ -331,12 +434,19 @@ const ImgStyled = styled.img`
 `;
 
 const LanesContainer = styled.div`
+  max-height: calc(100vh - 9rem);
   overflow: scroll;
   width: calc(50vw - 1rem);
 
   ul {
     display: flex;
-    margin-top: 2rem;
+    margin: 2rem 0;
+
+    @media (max-width: 600px) {
+      h3 {
+        margin: 0 auto;
+      }
+    }
   }
 
   @media (max-width: 600px) {
@@ -348,7 +458,7 @@ const Lane = styled.div`
   background-color: ${SILVER_COLOR};
   border-radius: 0.4rem;
   margin-right: 0.5rem;
-  max-height: calc(100vh - 13.5rem);
+  max-height: calc(100vh - 15.5rem);
   overflow: scroll;
   width: 20rem;
 `;
@@ -409,8 +519,10 @@ const ProjectPageContainer = styled.div`
 const TitleLane = styled.div`
   color: ${GREY_COLOR};
   font-family: ${TEXT_FONT};
+  font-weight: 700;
   font-size: 1rem;
-  padding: 0.5rem;;
+  padding: 0.5rem;
+  word-break: break-word;
 `;
 
 const TitleProject = styled.div`
@@ -418,10 +530,13 @@ const TitleProject = styled.div`
   color: ${WHITE_COLOR};
   font-family: ${TEXT_FONT};
   font-size: 1.5rem;
-  padding: 0.5rem 1rem;;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
 
   @media (max-width: 600px) {
     font-size: 1rem;
+    font-weight: 700;
+    height: 2rem;
     text-align: center;
   }
 `;
